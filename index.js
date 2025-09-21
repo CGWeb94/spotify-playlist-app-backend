@@ -40,3 +40,18 @@ app.post("/auth/token", async (req, res) => {
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+
+// Einfacher Test-Endpunkt für Spotify Redirect
+app.get("/callback", (req, res) => {
+  const code = req.query.code;
+  if (!code) {
+    return res.send("Kein Code erhalten");
+  }
+  // Optional: direkt eine kleine HTML-Seite zurückgeben oder einfach Code anzeigen
+  res.send(`
+    <h2>Spotify Authorization Code erhalten!</h2>
+    <p>Code: ${code}</p>
+    <p>Frontend kann jetzt diesen Code an /auth/token schicken.</p>
+  `);
+});
