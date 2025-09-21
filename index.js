@@ -1,3 +1,5 @@
+import cors from "cors";
+
 const express = require("express");
 const axios = require("axios");
 const cors = require("cors");
@@ -5,7 +7,9 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: "*", // für Test; später am besten nur Frontend-Domain
+}));
 app.use(express.json());
 
 const CLIENT_ID = process.env.SPOTIFY_CLIENT_ID;
