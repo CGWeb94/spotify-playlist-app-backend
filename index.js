@@ -48,11 +48,10 @@ app.get("/callback", (req, res) => {
   const code = req.query.code;
   if (!code) return res.send("Kein Code erhalten");
 
-  res.send(`
-    <h2>Spotify Authorization Code erhalten!</h2>
-    <p>Code: ${code}</p>
-    <p>Frontend kann jetzt diesen Code an /auth/token schicken.</p>
-  `);
+  // Weiterleitung an das Frontend, damit front-end den code automatisch verarbeitet
+  const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:5173";
+  // Weiterleiten mit Query-Parameter ?code=...
+  return res.redirect(`${FRONTEND_URL}/?code=${encodeURIComponent(code)}`);
 });
 
 // Server starten
